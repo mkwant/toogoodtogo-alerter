@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import humanize
 from dateutil import parser as date_parser
@@ -6,6 +7,7 @@ from rich import print
 from tgtg import TgtgClient
 
 from src.Alerter.alerter import Alerter, TelegramAlerter
+from src.Serializer.serializer import JsonSerializer
 from src.TooGoodToGo.client import get_client
 
 
@@ -42,6 +44,13 @@ def test_telegram():
     alerter.send_msg(msg=msg)
 
 
+def test_serializer():
+    serializer = JsonSerializer(Path('tgtg_alert_history.json'))
+    res = serializer.check_id_exists('456')
+    print(res)
+
+
 if __name__ == '__main__':
     # main()
-    test_telegram()
+    # test_telegram()
+    test_serializer()

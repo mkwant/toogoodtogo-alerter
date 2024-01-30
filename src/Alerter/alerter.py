@@ -2,7 +2,6 @@ import os
 from abc import ABC
 
 import requests
-from telegram_text import PlainText
 
 
 class Alerter(ABC):
