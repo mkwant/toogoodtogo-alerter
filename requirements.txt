@@ -3,4 +3,5 @@ py-dateutil>=2.2
 python-dotenv>=1.0.1
 requests=>2.31.0
 rich=>13.7.0
+telegram_text=>0.2.0
 tgtg>=0.16.1

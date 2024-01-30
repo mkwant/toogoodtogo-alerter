@@ -20,11 +20,9 @@ def tgtg_alert(client: TgtgClient, alerter: Alerter):
             pickup_day = humanize.naturalday(date_parser.parse(pickup_interval['start']))
             pickup_start = date_parser.parse(pickup_interval['start']).strftime(format='%H:%M')
             pickup_end = date_parser.parse(pickup_interval['end']).strftime(format='%H:%M')
-            msg = f"- {offer['display_name']} -\n" \
-                  f"[{offer['item']['item_id']}] ({offer['items_available']} left)\n" \
-                  f"{pickup_day} {pickup_start} - {pickup_end}"
-            print(offer['item']['description'])
-            print(offer['item']['cover_picture']['current_url'])
+            msg = f"<b>{offer['display_name']}</b>\n" \
+                  f"<blockquote>offer['item']['description']</blockquote>\n" \
+                  f"{pickup_day} {pickup_start} - {pickup_end} <i>({offer['items_available']} left)</i>"
 
             alerter.send_msg(msg=msg)
 
@@ -37,11 +35,13 @@ def main():
 
 def test_telegram():
     alerter = TelegramAlerter(bot_token=os.getenv('TELEGRAM_BOT_TOKEN'), chat_id=os.getenv('TELEGRAM_CHAT_ID'))
-    msg = f"TestMaarten\n" \
-          f"[123] (3 left)\n" \
-          f"tomorrow 12.00 - 13.00"
+    msg = f"<b>TestMaarten</b>\n" \
+          f"<blockquote>Omschrijving beschrijving verhaal hoop tekst. Wat een hoop woorden, echt een hele lap. " \
+          f"Blabla bla het gaat maar door.</blockquote>\n" \
+          f"tomorrow 12.00 - 13.00 <i>(3 left)</i>\n"
     alerter.send_msg(msg=msg)
 
 
 if __name__ == '__main__':
+    # main()
     test_telegram()

@@ -2,6 +2,7 @@ import os
 from abc import ABC
 
 import requests
+from telegram_text import PlainText
 
 
 class Alerter(ABC):
@@ -20,13 +21,18 @@ class TelegramAlerter(Alerter):
                    chat_id=os.getenv('TELEGRAM_CHAT_ID'))
 
     def send_msg(self, msg: str) -> bool:
+        # msg = PlainText(msg).to_markdown()
+        print(msg)
+
         url = f"https://api.telegram.org/bot{self.bot_token}/sendMessage"
         params = {
             'chat_id': self.chat_id,
             'text': msg,
+            'parse_mode': 'HTML'
         }
 
         print(url)
         r = requests.get(url, params=params)
         print(r.status_code)
+        print(r.content)
         return r.ok
